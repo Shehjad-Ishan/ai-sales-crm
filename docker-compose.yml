@@ -1,0 +1,51 @@
+services:
+  app:
+    build: ./app
+    depends_on:
+      - mailhog
+      - ollama
+    environment:
+      # Choose one: OLLAMA (default) or GROQ (set GROQ_API_KEY) or SMTP real servers.
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-gemma3}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.1-8b-instant}
+      # Email settings (MailHog for demo)
+      SMTP_HOST: ${SMTP_HOST:-mailhog}
+      SMTP_PORT: ${SMTP_PORT:-1025}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      FROM_NAME: ${FROM_NAME:-Acme SDR}
+      FROM_EMAIL: ${FROM_EMAIL:-sdr@acme.test}
+      # App behavior
+      LEADS_CSV: ${LEADS_CSV:-/data/leads.csv}
+      OUTPUT_CSV: ${OUTPUT_CSV:-/data/leads_out.csv}
+      GENERATE_FAKE_REPLIES: ${GENERATE_FAKE_REPLIES:-true}
+      MAX_LEADS: ${MAX_LEADS:-0}  # 0 means all
+    volumes:
+      - ./data:/data
+      - ./reports:/reports
+    command: ["python", "main.py"]
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "8025:8025"   # Web UI
+    environment: {}
+  ollama:
+    image: ollama/ollama:latest
+    runtime: nvidia                # <-- enable NVIDIA GPU
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:11434/api/tags"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+volumes:
+  ollama-data:
