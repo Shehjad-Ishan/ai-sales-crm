@@ -47,7 +47,7 @@ Override defaults via `.env`:
 
 ```bash
 LLM_PROVIDER=ollama           # or 'groq' if you set GROQ_API_KEY
-OLLAMA_MODEL=gemma2:2b        # default is 'mistral'; pulled automatically
+OLLAMA_MODEL=gemma2:2b        # default is 'gemma3'; pulled automatically
 SMTP_HOST=mailhog
 SMTP_PORT=1025
 FROM_NAME=Acme SDR
