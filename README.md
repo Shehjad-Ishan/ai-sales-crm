@@ -332,9 +332,9 @@ If this project helped you, please consider giving it a star! ⭐
 
 ## 📞 **Support**
 
-- 🐛 **Issues:** [GitHub Issues](https://github.com/yourusername/ai-sales-crm/issues)
-- 📧 **Email:** your-email@domain.com
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/yourusername/ai-sales-crm/discussions)
+- 🐛 **Issues:** [GitHub Issues](https://github.com/Shehjad-Ishan/ai-sales-crm/issues)
+- 📧 **Email:** shehjadishan211@gmail.com
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/Shehjad-Ishan/ai-sales-crm/discussions)
 
 ---
 
